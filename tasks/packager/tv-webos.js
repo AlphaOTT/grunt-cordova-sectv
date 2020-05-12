@@ -404,13 +404,15 @@ module.exports = {
             }
             console.log(stdout);
 
+            // ToDo: check ares version
+
             // reference url : http://developer.lge.com/webOSTV/sdk/web-sdk/webos-tv-cli/using-webos-tv-cli/
             var result = shelljs.exec('ares-package ' + path.resolve(www));
             if(result.code) {
                 throw Error(result.output);
             }
             else {
-                var packagePath = result.output.match(/Creating package (.*) in/);
+                var packagePath = result.output.match(/Create (.*) to/);
                 if(packagePath && packagePath[1]) {
                     prepareDir(dest);
                     shelljs.mv('-f', packagePath[1], path.resolve(dest));
